@@ -6,11 +6,13 @@ import { Cart } from './cart.entity';
 import { CartItem } from './cart-item.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module'; // importe aqui
+import { ProductsModule } from 'src/products/products.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Cart, CartItem]),
-    UsersModule, 
+    UsersModule,
+    ProductsModule,
   ],
   controllers: [CartController],
   providers: [CartService],

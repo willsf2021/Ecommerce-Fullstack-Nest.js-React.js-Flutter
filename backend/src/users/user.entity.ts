@@ -1,6 +1,11 @@
-// src/users/user.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Cart } from 'src/cart/cart.entity';
+import { Cart } from '../cart/cart.entity';
+import { Order } from '../orders/order.entity';
+
+export enum UserRole {
+  CUSTOMER = 'CUSTOMER',
+  ADMIN = 'ADMIN',
+}
 
 @Entity()
 export class User {
@@ -10,9 +15,15 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  password: string; // Em um cenário real, armazene hashes de senha
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.CUSTOMER })
+  role: UserRole;
 
-  @OneToMany(() => Cart, cart => cart.user)
+  @Column()
+  password: string;
+
+  @OneToMany(() => Cart, (cart) => cart.user)
   carts: Cart[];
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }

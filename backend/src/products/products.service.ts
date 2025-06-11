@@ -81,6 +81,7 @@ export class ProductsService {
   findOneByCompositeId(compositeId: string): Observable<ProductDto> {
     const [provider, idStr] = compositeId.split('-');
     const id = parseInt(idStr);
+    console.log(id)
     if (!provider || isNaN(id)) {
       throw new HttpException(
         'Formato de compositeId inválido. Use o formato provider-id',
